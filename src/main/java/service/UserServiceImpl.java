@@ -1,8 +1,9 @@
 package service;
 
-import dao.UserDao;
+import dao.interfaces.UserDao;
 import model.User;
-import model.Wallpaper;
+import model.CollectionWallpaper;
+import service.interfaces.UserService;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        this.userDao.saveUser(user);
+    public boolean saveUser(User user) {
+        return this.userDao.saveUser(user);
     }
 
     @Override
@@ -35,7 +36,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Wallpaper> getAllImage() {
+    public List<CollectionWallpaper> getAllImage() {
         return this.userDao.getAllImage();
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return this.userDao.getUserByLogin(login);
     }
 }

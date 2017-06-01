@@ -1,17 +1,17 @@
 package dao;
 
+import dao.interfaces.UserDao;
 import model.User;
-import model.Wallpaper;
+import model.CollectionWallpaper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -26,12 +26,13 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     @Transactional
-    public void saveUser(User user) {
+    public boolean saveUser(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         Transaction ts = session.beginTransaction();
+//        check DB
         session.persist(user);
         ts.commit();
-//        session.close();
+        return true;
     }
 
     @Override
@@ -44,14 +45,14 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public List<Wallpaper> getAllImage() {
+    public List<CollectionWallpaper> getAllImage() {
         Session session = sessionFactory.getCurrentSession();
         Transaction ts = session.beginTransaction();
-        List<Wallpaper> wallpapers =  (List<Wallpaper>) session.createSQLQuery("select wallpapers.id, url from users\n" +
+        List<CollectionWallpaper> collectionWallpapers =  (List<CollectionWallpaper>) session.createSQLQuery("select wallpapers.id, url from users\n" +
                 "inner join users_wallpapers on users.id = users_wallpapers.user_id\n" +
                 "inner join wallpapers on users_wallpapers.wallpaper_id = wallpapers.id").list();
         ts.commit();
-        return wallpapers;
+        return collectionWallpapers;
     }
 
     @Override
@@ -60,7 +61,14 @@ public class UserDaoImpl implements UserDao{
         Transaction ts = session.beginTransaction();
         User user = (User)session.get(User.class, new Integer(id));
         ts.commit();
-//        session.close();
+        return user;
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        User user = (User) session.get(User.class, login);
         return user;
     }
 

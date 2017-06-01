@@ -1,15 +1,16 @@
-package dao;
+package dao.interfaces;
 
 import model.User;
-import model.Wallpaper;
+import model.CollectionWallpaper;
 
 import java.util.List;
 
 public interface UserDao {
-    public void saveUser(User user);
+    public boolean saveUser(User user);
     public List<User> getAllUsers();
-    public List<Wallpaper> getAllImage();
+    public List<CollectionWallpaper> getAllImage();
     public User getUserById(int id);
+    public User getUserByLogin(String login);
 //    public void remove(int id);
     public void update(User user);
 }

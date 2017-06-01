@@ -1,15 +1,13 @@
 package dao;
 
-import model.Wallpaper;
+import dao.interfaces.CollectionWallpapersDao;
+import model.CollectionWallpaper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Created by pante on 28.05.2017.
- */
-public class WallpaperDaoImpl implements WallpaperDao{
+public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,19 +21,19 @@ public class WallpaperDaoImpl implements WallpaperDao{
     }
 
     @Override
-    public void save(Wallpaper wallpaper) {
+    public void save(CollectionWallpaper collectionWallpaper) {
         Session session = sessionFactory.getCurrentSession();
         Transaction ts = session.beginTransaction();
-        session.persist(wallpaper);
+        session.persist(collectionWallpaper);
         ts.commit();
     }
 
     @Override
-    public Wallpaper getWallpaperById(int id) {
+    public CollectionWallpaper getWallpaperById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Transaction ts = session.beginTransaction();
-        Wallpaper wallpaper = (Wallpaper) session.get(Wallpaper.class, new Integer(id));
+        CollectionWallpaper collectionWallpaper = (CollectionWallpaper) session.get(CollectionWallpaper.class, new Integer(id));
         ts.commit();
-        return wallpaper;
+        return collectionWallpaper;
     }
 }

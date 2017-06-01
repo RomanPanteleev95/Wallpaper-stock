@@ -19,7 +19,9 @@
         <property name="annotatedClasses">
             <list>
                 <value>model.User</value>
-                <value>model.Wallpaper</value>
+                <value>model.CollectionWallpaper</value>
+                <value>model.DefaultWallpaper</value>
+                <value>model.Category</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -34,7 +36,7 @@
     <bean id="userDao" class="dao.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    <bean id="wallpaperDAO" class="dao.WallpaperDaoImpl">
+    <bean id="collectionWallpaperDAO" class="dao.CollectionWallpapersDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
