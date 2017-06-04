@@ -98,12 +98,22 @@ public class CollectionWallpaper {
         this.likes = likes;
     }
 
+
     public Set<Category> getCategories() {
         return categories;
     }
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CollectionWallpaper collectionWallpaper = (CollectionWallpaper) obj;
+        if(this.url.equals(collectionWallpaper.url))
+            return true;
+        else
+            return false;
     }
 
     @Override

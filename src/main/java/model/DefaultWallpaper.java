@@ -57,6 +57,10 @@ public class DefaultWallpaper {
         return categories;
     }
 
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
     public void setUsers(Set<User> users) {
         this.categories = categories;
     }
@@ -94,7 +98,17 @@ public class DefaultWallpaper {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        DefaultWallpaper defaultWallpaper = (DefaultWallpaper) obj;
+        if(this.url.equals(defaultWallpaper.url))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public String toString(){
         return id + " " + url;
     }
+
 }

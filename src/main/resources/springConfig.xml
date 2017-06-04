@@ -39,6 +39,9 @@
     <bean id="collectionWallpaperDAO" class="dao.CollectionWallpapersDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    <bean id="defaultWallpaperDAO" class="dao.DefaultWallpapersDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
     <bean id="customerService" class="service.UserServiceImpl">
         <property name="userDao" ref="userDao"></property>

@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
 
     @Autowired
@@ -35,5 +37,14 @@ public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
         CollectionWallpaper collectionWallpaper = (CollectionWallpaper) session.get(CollectionWallpaper.class, new Integer(id));
         ts.commit();
         return collectionWallpaper;
+    }
+
+    @Override
+    public List<CollectionWallpaper> getAllWallpapers() {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        List<CollectionWallpaper> collectionWallpapers = (List<CollectionWallpaper>) session.createQuery("from model.CollectionWallpaper").list();
+        ts.commit();
+        return collectionWallpapers;
     }
 }

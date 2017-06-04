@@ -67,8 +67,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        User user = (User) session.get(User.class, login);
+        List<User> users = this.getAllUsers();
+        User user = new User();
+        for (User u : users)
+            if (u.getLogin().equals(login))
+                user = u;
         return user;
     }
 
