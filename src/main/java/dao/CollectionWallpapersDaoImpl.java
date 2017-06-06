@@ -47,4 +47,15 @@ public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
         ts.commit();
         return collectionWallpapers;
     }
+
+    @Override
+    public CollectionWallpaper getWallpaperByUrl(String url) {
+        Session session = sessionFactory.getCurrentSession();
+        List<CollectionWallpaper> wallpapers = this.getAllWallpapers();
+        CollectionWallpaper collectionWallpaper = new CollectionWallpaper();
+        for (CollectionWallpaper cw : wallpapers)
+            if (cw.getUrl().equals(url))
+                collectionWallpaper = cw;
+        return collectionWallpaper;
+    }
 }

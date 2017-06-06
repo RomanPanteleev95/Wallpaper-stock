@@ -61,4 +61,18 @@ public class Category {
     public void setCollectionWallpapers(Set<CollectionWallpaper> collectionWallpapers) {
         this.collectionWallpapers = collectionWallpapers;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Category category = (Category) obj;
+        if(this.name.equals(category.name))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + name;
+    }
 }

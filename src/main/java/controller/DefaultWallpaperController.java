@@ -45,6 +45,8 @@ public class DefaultWallpaperController {
         user.setCollectionWallpapers(set);
         userService.update(user);
         //добавить проверку категорий
+
+
         return user;
     }
 }

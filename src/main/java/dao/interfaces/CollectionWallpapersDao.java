@@ -9,4 +9,5 @@ public interface CollectionWallpapersDao {
     public void save(CollectionWallpaper collectionWallpaper);
     public CollectionWallpaper getWallpaperById(int id);
     public List<CollectionWallpaper> getAllWallpapers();
+    public CollectionWallpaper getWallpaperByUrl(String url);
 }
