@@ -18,4 +18,14 @@ public class CategoriesServiceImpl implements CategoriesService {
     public List<Category> getAllCategories() {
         return categoriesDao.getAllCategories();
     }
+
+    @Override
+    public void save(Category category) {
+        this.categoriesDao.save(category);
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return this.categoriesDao.getCategoryByName(name);
+    }
 }

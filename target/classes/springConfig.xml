@@ -53,11 +53,14 @@
     <bean id="categoriesService" class="service.CategoriesServiceImpl">
         <property name="categoriesDao" ref="categoriesDAO"></property>
     </bean>
+    <bean id="collectionWallpaperService" class="service.CollectionWallpaperServiceImpl">
+        <property name="collectionWallpapersDao" ref="collectionWallpaperDAO"></property>
+    </bean>
 
-    <!--<tx:annotation-driven />-->
-    <!--<bean id="transactionManager"-->
-          <!--class="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

@@ -6,12 +6,14 @@ import model.CollectionWallpaper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements UserDao{
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -27,20 +29,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public boolean saveUser(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
-//        check DB
         session.persist(user);
         ts.commit();
+        session.close();
         return true;
     }
 
     @Override
     public List<User> getAllUsers() {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
         List<User> users = (List<User>) session.createQuery("from model.User").list();
         ts.commit();
+        session.close();
         return users;
     }
 
@@ -57,29 +60,32 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(int id) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
         User user = (User)session.get(User.class, new Integer(id));
         ts.commit();
+        session.close();
         return user;
     }
 
     @Override
     public User getUserByLogin(String login) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         List<User> users = this.getAllUsers();
         User user = new User();
         for (User u : users)
             if (u.getLogin().equals(login))
                 user = u;
+        session.close();
         return user;
     }
 
     @Override
     public void update(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
         session.update(user);
+        session.close();
         ts.commit();
     }
 

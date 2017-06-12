@@ -22,17 +22,24 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String userRegistration(@Valid @RequestBody User user){
-        try{
-            user.getLogin().equals("");
-        }catch (NullPointerException e){
-            return "Error: enter login!";
-        }
+//        try{
+//            user.getLogin().equals("");
+//        }catch (NullPointerException e){
+//            return "Error: enter login!";
+//        }
+//
+//        try{
+//            user.getNewPassword().equals("");
+//        }catch (NullPointerException e){
+//            return "Error: enter password";
+//        }
 
-        try{
-            user.getNewPassword().equals("");
-        }catch (NullPointerException e){
-            return "Error: enter password";
-        }
+        if (user.getLogin().length() < 1)
+            return "Error: enter login!";
+
+        if (user.getNewPassword().length() < 1)
+            return "Error: enter password!";
+
 
         user.setOldPassword(user.getNewPassword());
         user.setSessionId(-1);
