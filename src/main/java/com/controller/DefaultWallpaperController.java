@@ -71,6 +71,11 @@ public class DefaultWallpaperController {
         return user;
     }
 
+    @RequestMapping(value = "/print", method = RequestMethod.GET)
+    public String printHello(){
+        return "Hello!";
+    }
+
     @RequestMapping(value = "/addWallpToCollection", method = RequestMethod.POST)
     public User addWallpToCollection(@RequestBody UsersWalpaper usersWalpaper){
         User user = new UsersWallpaperMapper().getUSer(usersWalpaper,userService);
