@@ -42,8 +42,11 @@ public class UserController {
 
     @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
     public String passwordChange(@RequestBody User user){
-
-        return null;
+        User currentUser = userService.getUserByLogin(user.getLogin());
+        currentUser.setOldPassword(currentUser.getNewPassword());
+        currentUser.setNewPassword(user.getNewPassword());
+        userService.update(currentUser);
+        return "OK!";
     }
 
     @RequestMapping(value = "/images", method = RequestMethod.POST)
@@ -53,13 +56,26 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String Login(@RequestBody User user){
-        return null;
+        User currentUser = userService.getUserByLogin(user.getLogin());
+        currentUser.setSessionId(user.getSessionId());
+        currentUser.setLastActiveTime(user.getLastActiveTime());
+        userService.update(currentUser);
+        return "login";
     }
 
-    public String Logout(@RequestBody User user){return null;}
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String Logout(@RequestBody User user){
+        User currentUser = userService.getUserByLogin(user.getLogin());
+        currentUser.setSessionId(-1);
+        userService.update(currentUser);
+        return "logout";
+    }
 
     @RequestMapping(value = "/lastActiveTimeUpdate", method = RequestMethod.POST)
     public String lastActiveTimeUpdate(@RequestBody User user){
-        return null;
+        User currentUser = userService.getUserByLogin(user.getLogin());
+        currentUser.setLastActiveTime(user.getLastActiveTime());
+        userService.update(currentUser);
+        return "LAT update";
     }
 }
