@@ -38,11 +38,12 @@ public class CategoriesDaoImpl implements CategoriesDao {
     }
 
     @Override
+    @Transactional
     public void save(Category category) {
         Session session = this.sessionFactory.openSession();
-        Transaction ts = session.beginTransaction();
-        session.persist(category);
-        ts.commit();
+//        Transaction ts = session.beginTransaction();
+        session.save(category);
+//        ts.commit();
         session.close();
     }
 

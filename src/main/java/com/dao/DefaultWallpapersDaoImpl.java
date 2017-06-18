@@ -31,7 +31,9 @@ public class DefaultWallpapersDaoImpl implements DefaultWallpapersDao{
     @Transactional
     public void save(DefaultWallpaper defaultWallpapers) {
         Session session = sessionFactory.openSession();
+        Transaction ts = session.beginTransaction();
         session.save(defaultWallpapers);
+        ts.commit();
         session.close();
     }
 

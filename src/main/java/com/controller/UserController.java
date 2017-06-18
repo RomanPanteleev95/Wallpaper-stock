@@ -21,7 +21,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String userRegistration(@Valid @RequestBody User user){
+    public String userRegistration(@RequestBody User user){
         if (user.getLogin().length() < 1)
             return "Error: enter login!";
 
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
-    public String passwordChange(@Valid @RequestBody User user){
+    public String passwordChange(@RequestBody User user){
 
         return null;
     }
@@ -52,14 +52,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String Login(@Valid @RequestBody User user){
+    public String Login(@RequestBody User user){
         return null;
     }
 
     public String Logout(@RequestBody User user){return null;}
 
     @RequestMapping(value = "/lastActiveTimeUpdate", method = RequestMethod.POST)
-    public String lastActiveTimeUpdate(@Valid @RequestBody User user){
+    public String lastActiveTimeUpdate(@RequestBody User user){
         return null;
     }
 }

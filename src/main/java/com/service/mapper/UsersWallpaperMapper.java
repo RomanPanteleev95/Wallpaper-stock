@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.service.dto.UsersWalpaper;
 import com.service.interfaces.UserService;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
 public class UsersWallpaperMapper {
-    @Autowired
-    static UserService userService;
-    public Pair getUserWallpapers(UsersWalpaper usersWalpaper){
+
+    public Pair getUserWallpapers(UsersWalpaper usersWalpaper, UserService userService){
         User user = userService.getUserByLogin(usersWalpaper.getLogin());
         CollectionWallpaper collectionWallpaper = new CollectionWallpaper();
         collectionWallpaper.setUrl(usersWalpaper.getUrl());
@@ -27,12 +30,12 @@ public class UsersWallpaperMapper {
         return new Pair(user, collectionWallpaper);
     }
 
-    public static User getUSer(UsersWalpaper usersWalpaper){
+    public User getUSer(UsersWalpaper usersWalpaper, UserService userService){
         User user = userService.getUserByLogin(usersWalpaper.getLogin());
         return user;
     }
 
-    public static CollectionWallpaper getWallpaper(UsersWalpaper usersWalpaper){
+    public CollectionWallpaper getWallpaper(UsersWalpaper usersWalpaper){
         CollectionWallpaper collectionWallpaper = new CollectionWallpaper();
         collectionWallpaper.setUrl(usersWalpaper.getUrl());
         collectionWallpaper.setWidth(usersWalpaper.getWidth());

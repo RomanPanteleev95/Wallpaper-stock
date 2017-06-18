@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,10 +27,11 @@ public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
     }
 
     @Override
+    @Transactional
     public void save(CollectionWallpaper collectionWallpaper) {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
-        session.persist(collectionWallpaper);
+        session.save(collectionWallpaper);
         ts.commit();
         session.close();
     }
@@ -47,7 +50,7 @@ public class CollectionWallpapersDaoImpl implements CollectionWallpapersDao {
     public List<CollectionWallpaper> getAllWallpapers() {
         Session session = sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
-        List<CollectionWallpaper> collectionWallpapers = (List<CollectionWallpaper>) session.createQuery("from model.CollectionWallpaper").list();
+        List<CollectionWallpaper> collectionWallpapers = (List<CollectionWallpaper>) session.createQuery("from com.model.CollectionWallpaper").list();
         ts.commit();
         session.close();
         return collectionWallpapers;

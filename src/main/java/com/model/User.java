@@ -35,8 +35,8 @@ public class User {
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinTable(name = "users_wallpapers", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "wallpaper_id"))
-    private Set<CollectionWallpaper> collectionWallpapers = new HashSet<CollectionWallpaper>();
+    @JoinTable(name = "users_wallpapers", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "wallpaper_id")})
+    private Set<CollectionWallpaper> collectionWallpapers = new HashSet<>();
 
     public User(){
     }
@@ -107,14 +107,7 @@ public class User {
             return false;
     }
 
-    @Override
-    public int hashCode()
-    {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + this.login.hashCode();
-        return result;
-    }
+
 
     @Override
     public String toString(){

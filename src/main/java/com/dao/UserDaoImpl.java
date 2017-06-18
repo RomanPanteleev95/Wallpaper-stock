@@ -5,6 +5,7 @@ import com.model.User;
 import com.model.CollectionWallpaper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.ImportResource;
@@ -32,7 +33,9 @@ public class UserDaoImpl implements UserDao{
     @Transactional
     public boolean saveUser(User user) {
         Session session = this.sessionFactory.openSession();
+        Transaction ts = session.beginTransaction();
         session.save(user);
+        ts.commit();
         session.close();
         return true;
     }
@@ -81,7 +84,9 @@ public class UserDaoImpl implements UserDao{
     @Transactional
     public void update(User user) {
         Session session = this.sessionFactory.openSession();
+        Transaction ts = session.beginTransaction();
         session.update(user);
+        ts.commit();
         session.close();
     }
 

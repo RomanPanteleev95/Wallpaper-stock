@@ -116,14 +116,7 @@ public class CollectionWallpaper {
             return false;
     }
 
-    @Override
-    public int hashCode()
-    {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + this.url.hashCode();
-        return result;
-    }
+
 
     @Override
     public String toString(){

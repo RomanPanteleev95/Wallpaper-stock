@@ -25,7 +25,7 @@ public class Category {
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinTable(name = "categories_collection_wallpapers", joinColumns = @JoinColumn(name = "categories_id"), inverseJoinColumns = @JoinColumn(name = "collection_wallpapers_id"))
-    private Set<CollectionWallpaper> collectionWallpapers = new HashSet<CollectionWallpaper>();
+    private Set<CollectionWallpaper> collectionWallpapers = new HashSet<>();
 
     public Category(){
     }
@@ -62,7 +62,7 @@ public class Category {
         this.collectionWallpapers = collectionWallpapers;
     }
 
-//    @Override
+    @Override
     public boolean equals(Object obj) {
         Category category = (Category) obj;
         if(this.name.equals(category.getName()))
