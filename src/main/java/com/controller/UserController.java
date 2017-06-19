@@ -2,7 +2,12 @@ package com.controller;
 
 import com.model.User;
 import com.model.CollectionWallpaper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.service.interfaces.UserService;
 
 import javax.validation.Valid;
+import java.awt.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "UsersControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
     @Autowired
@@ -21,6 +28,8 @@ public class UserController {
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @ApiOperation("User's registration.")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "COMPLETE", response = User.class)})
     public String userRegistration(@RequestBody User user){
         if (user.getLogin().length() < 1)
             return "Error: enter login!";
@@ -41,6 +50,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
+    @ApiOperation("Change user's password")
+    @ApiResponse(code = 200, message = "COMPLETE", response = User.class)
     public String passwordChange(@RequestBody User user){
         User currentUser = userService.getUserByLogin(user.getLogin());
         currentUser.setOldPassword(currentUser.getNewPassword());
