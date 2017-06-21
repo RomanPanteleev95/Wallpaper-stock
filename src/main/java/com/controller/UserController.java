@@ -19,7 +19,7 @@ import java.awt.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 @Api(value = "UsersControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
@@ -51,21 +51,25 @@ public class UserController {
 
     @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
     @ApiOperation("Change user's password")
-    @ApiResponse(code = 200, message = "COMPLETE", response = User.class)
-    public String passwordChange(@RequestBody User user){
+    @ApiResponse(code = 200, message = "Password has been changed!", response = User.class)
+    public User passwordChange(@RequestBody User user){
         User currentUser = userService.getUserByLogin(user.getLogin());
         currentUser.setOldPassword(currentUser.getNewPassword());
         currentUser.setNewPassword(user.getNewPassword());
         userService.update(currentUser);
-        return "OK!";
+        return user;
     }
 
     @RequestMapping(value = "/images", method = RequestMethod.POST)
-    public List<CollectionWallpaper> getUsersWallpapers(){
-        return userService.getAllImage();
+    @ApiOperation("Show all user's collection!")
+    @ApiResponse(code = 200, message = "All wallpapers")
+    public List<CollectionWallpaper> getUsersWallpapers(@RequestBody User user){
+        return userService.getAllImage(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ApiOperation("Log in!")
+    @ApiResponse(code = 200, message = "Log in")
     public String Login(@RequestBody User user){
         User currentUser = userService.getUserByLogin(user.getLogin());
         currentUser.setSessionId(user.getSessionId());
@@ -75,6 +79,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ApiOperation("Log out!")
+    @ApiResponse(code = 200, message = "Log out")
     public String Logout(@RequestBody User user){
         User currentUser = userService.getUserByLogin(user.getLogin());
         currentUser.setSessionId(-1);
@@ -83,6 +89,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/lastActiveTimeUpdate", method = RequestMethod.POST)
+    @ApiOperation("Last active time update!")
+    @ApiResponse(code = 200, message = "last active time update")
     public String lastActiveTimeUpdate(@RequestBody User user){
         User currentUser = userService.getUserByLogin(user.getLogin());
         currentUser.setLastActiveTime(user.getLastActiveTime());

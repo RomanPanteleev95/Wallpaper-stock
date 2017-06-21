@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<CollectionWallpaper> getAllImage() {
-        return this.userDao.getAllImage();
+    public List<CollectionWallpaper> getAllImage(User user) {
+        return this.userDao.getAllImage(user);
     }
 
     @Override

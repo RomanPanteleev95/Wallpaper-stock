@@ -29,7 +29,7 @@ public class DefaultWallpaper {
     @Column(name = "likes")
     private int likes;
 
-
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinTable(name = "categories_default_wallpapers", joinColumns = @JoinColumn(name = "default_wallpapers_id"), inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private Set<Category> categories = new HashSet<>();

@@ -8,4 +8,5 @@ import java.util.List;
 public interface DefaultWallpaperService {
     public void save(DefaultWallpaper defaultWallpaper);
     public List<DefaultWallpaper> getAllDefaultWallpapers();
+    public void delete();
 }

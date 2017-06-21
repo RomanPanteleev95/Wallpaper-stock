@@ -51,11 +51,13 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     @Transactional
-    public List<CollectionWallpaper> getAllImage() {
+    public List<CollectionWallpaper> getAllImage(User user) {
         Session session = sessionFactory.getCurrentSession();
-        List<CollectionWallpaper> collectionWallpapers =  (List<CollectionWallpaper>) session.createSQLQuery("select wallpapers.id, url from users\n" +
+        Transaction ts = session.beginTransaction();
+        List<CollectionWallpaper> collectionWallpapers =  (List<CollectionWallpaper>) session.createSQLQuery("select collection_wallpapers.id, url from users \n" +
                 "inner join users_wallpapers on users.id = users_wallpapers.user_id\n" +
-                "inner join wallpapers on users_wallpapers.wallpaper_id = wallpapers.id").list();
+                "inner join collection_wallpapers on users_wallpapers.wallpaper_id = collection_wallpapers.id where users.login = :login").setString("login", user.getLogin()).list();
+        ts.commit();
         return collectionWallpapers;
     }
 

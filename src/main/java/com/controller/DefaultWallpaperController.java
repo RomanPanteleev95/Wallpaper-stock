@@ -6,6 +6,10 @@ import com.model.DefaultWallpaper;
 import com.model.User;
 import com.service.helper.CollectionHelper;
 import com.service.interfaces.DefaultWallpaperService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/wallpapers")
+@RequestMapping("/api/wallpapers")
 public class DefaultWallpaperController {
 
     @Autowired
@@ -76,6 +80,8 @@ public class DefaultWallpaperController {
         return "Hello!";
     }
 
+    @ApiOperation("Add wallpeper to user's collection")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "COMPLETE", response = CollectionWallpaper.class)})
     @RequestMapping(value = "/addWallpToCollection", method = RequestMethod.POST)
     public User addWallpToCollection(@RequestBody UsersWalpaper usersWalpaper){
         User user = new UsersWallpaperMapper().getUSer(usersWalpaper,userService);
@@ -87,7 +93,10 @@ public class DefaultWallpaperController {
     }
 
     @RequestMapping(value = "/addDefault", method = RequestMethod.POST)
+    @ApiOperation("Add wallpeper to user's collection")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "COMPLETE")})
     public String addNewWallp(@RequestBody List<DefaultWallpaper> defaultWallpapers){
+        defaultWallpaperService.delete();
         for (DefaultWallpaper dw : defaultWallpapers){
             List<Category> categories = categoriesService.getAllCategories();
             Set<Category> dwCategories = dw.getCategories();

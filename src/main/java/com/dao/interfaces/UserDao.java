@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserDao {
     public boolean saveUser(User user);
     public List<User> getAllUsers();
-    public List<CollectionWallpaper> getAllImage();
+    public List<CollectionWallpaper> getAllImage(User user);
     public User getUserById(int id);
     public User getUserByLogin(String login);
 //    public void remove(int id);

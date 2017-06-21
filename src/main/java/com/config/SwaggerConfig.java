@@ -19,15 +19,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     private static final String SWAGGER_API_VERSION = "1.0";
-    private static final String LICENSE_TEXT = "Licens";
-    private static final String title = "User REST API";
-    private static final String description = "RESTfil API for products";
+    private static final String title = "User/Wallpaper REST API";
+    private static final String description = "RESTfull API for users/wallpapers";
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title(title)
                 .description(description)
-                .license(LICENSE_TEXT)
                 .version(SWAGGER_API_VERSION)
                 .build();
     }

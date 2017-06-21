@@ -11,6 +11,6 @@ public interface UserService {
     public boolean saveUser(User user);
     public User getUserById(int id);
     public void update(User user);
-    public List<CollectionWallpaper> getAllImage();
+    public List<CollectionWallpaper> getAllImage(User user);
     public User getUserByLogin(String login);
 }

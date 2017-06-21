@@ -30,4 +30,9 @@ public class DefaultWallpaperServiceImpl implements DefaultWallpaperService {
     public List<DefaultWallpaper> getAllDefaultWallpapers() {
         return this.defaultWallpapersDao.getAllDefaultWallpapers();
     }
+
+    @Override
+    public void delete() {
+        this.defaultWallpapersDao.delete();
+    }
 }
